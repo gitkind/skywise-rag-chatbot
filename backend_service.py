@@ -5,10 +5,6 @@ Updated Backend Service Bridge with Relevance Guardrails, Re-ranking, and Citati
 import os
 from typing import Dict, Any
 
-# Ensure HuggingFace loads offline embeddings if cached
-os.environ.setdefault("HF_HUB_OFFLINE", "1")
-os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
-
 from dotenv import load_dotenv
 load_dotenv()
 
