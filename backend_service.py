@@ -24,6 +24,11 @@ from guardrails import assess_input_relevance, rerank_chunks, verify_and_filter_
 from hybrid_retrieval import hybrid_retrieve, vector_search
 from query_decomposition import decomposed_retrieve, plan_query
 
+FALLBACK_ANSWER = (
+    "I couldn't find enough information in the supplied Air India policy "
+    "documents to answer this confidently."
+)
+
 STRATEGIES = {
     "hybrid": "Hybrid (vector + BM25, RRF)",
     "vector": "Vector only (baseline)",
@@ -138,6 +143,8 @@ def finalize(prepared: dict, answer: str, generation_ms: int | None = None) -> d
         abstained = False
     else:
         citations, abstained, invalid = verify_and_filter_citations(answer, prepared["chunks"])
+        if answer.lstrip().startswith(FALLBACK_ANSWER[:40]):
+            citations = []  # a refusal has no supporting sources to show
 
     if prepared["blocked"]:
         status = "out_of_scope"
