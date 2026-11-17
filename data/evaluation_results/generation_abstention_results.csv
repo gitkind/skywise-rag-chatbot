@@ -1,0 +1,45 @@
+﻿question_id,question,expected_behavior,expected_evidence,generated_answer,retrieved_sources,status
+Q16,Does Air India provide free helicopter transfers for passengers?,Abstain: say supplied documents do not establish a free helicopter-transfer benefit. Do not answer 'no' as a universal fact.,No supporting provision in the six supplied documents; a hotel-accommodation clause mentions transfers but does not specify helicopters.,"I couldn't find enough information in the supplied Air India policy documents to answer this confidently.
+
+The retrieved Air India Conditions of Carriage do **not** mention helicopter transfers or any entitlement to free helicopter transfers for passengers.
+
+The only relevant “transfers” reference is limited to **hotel accommodation including transfers** in certain long-delay situations, and it does not specify helicopters or create a general free-transfer benefit. This provision is also from an undated Conditions of Carriage document, so its current applicability is not established in the supplied context.  
+**Source:** *Air India Conditions of Carriage*, PDF p. 17.
+
+The document also says Air India may arrange additional services in some cases, but it does not identify helicopter transfers or state they are free.  
+**Source:** *Air India Conditions of Carriage*, PDF p. 20.",Air India Conditions of Carriage | Page 9; Air India Conditions of Carriage | Page 13; Air India Conditions of Carriage | Page 15; Air India Conditions of Carriage | Page 6; Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 20; Air India Conditions of Carriage | Page 25; Air India Conditions of Carriage | Page 8,success
+Q17,What is Air India's exact cash compensation amount for every cancelled flight?,Abstain from giving a figure; explain that supplied documents do not specify a universal amount.,The supplied Conditions of Carriage refers to compensation and exceptions but does not establish one universal exact amount.,"No. The supplied Air India documents do **not** establish one exact cash compensation amount that applies to **every cancelled flight**.
+
+The cancellation provision is conditional: compensation is discussed only where, after a cancellation, the passenger does not accept an alternative flight, or a connecting flight is missed because of the cancellation. The amount is not universal; it depends on conditions such as the flight’s block time and the booked one-way basic fare plus airline fuel charge. (Air India Conditions of Carriage, PDF p. 17)
+
+The same provision also states that passengers may not be eligible for compensation if inadequate contact information was provided at booking, and that Air India is not liable to pay compensation or provide facilities where cancellation is due to force majeure circumstances beyond the carrier’s control. (Air India Conditions of Carriage, PDF p. 17)
+
+Also, the supplied Conditions of Carriage PDF has **no effective date stated**, so I cannot confirm from the supplied context whether it is currently valid.",Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 11; Air India Conditions of Carriage | Page 21; Air India Conditions of Carriage | Page 9; Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 18; Air India Conditions of Carriage | Page 18; Air India Conditions of Carriage | Page 17,success
+Q18,What is Air India's current hand-baggage weight allowance in November 2026?,Abstain on current validity; identify the supplied source as historical and say current allowance is not established by this corpus.,The supplied hand-baggage document is historical and states an effect date of 1 July 2015; it does not establish the current November 2026 allowance.,"I couldn't find enough information in the supplied Air India policy documents to answer this confidently.
+
+The only document that gives a specific hand-baggage weight allowance says the maximum permitted hand baggage is **8 kg per passenger**, but it is marked **effective 1 July 2015; historical**. It does **not** establish that this is Air India’s current allowance in **November 2026**.  
+Source: **Air India Hand Baggage Policy**, PDF p. 1.
+
+The supplied Conditions of Carriage only says baggage allowances are governed by the carrier’s regulations and that excessive cabin baggage may be refused, but it does **not** state a current hand-baggage weight allowance. Its effective date is **not stated**.  
+Sources: **Air India Conditions of Carriage**, PDF pp. 13–14.
+
+So, based only on the supplied documents, Air India’s **current November 2026** hand-baggage weight allowance is **not established**.",Air India Hand Baggage Policy | Page 1; Air India Conditions of Carriage | Page 25; Air India Conditions of Carriage | Page 13; Air India Hand Baggage Policy | Page 1; Air India Conditions of Carriage | Page 13; Air India Conditions of Carriage | Page 14; Air India Conditions of Carriage | Page 12; Air India Conditions of Carriage | Page 23,success
+Q19,Can I bring a rabbit in the cabin on an Air India flight?,Do not infer permission or prohibition beyond listed species; say supplied guideline does not establish rabbit eligibility.,"Pets in Cabin Guidelines, PDF p.2 names domesticated cats and dogs; it does not establish rabbit eligibility.","Rabbit eligibility for cabin travel is **not established** by the supplied Air India documents.
+
+The supplied Air India Pets in Cabin Guidelines list eligible pets as **“only domesticated cats and dogs”** for pet travel, including Pets in Cabin (PETC). They do **not** provide a rule confirming whether rabbits can travel in the cabin. The document is also **undated** in the supplied PDF, so I cannot confirm current applicability from the context provided.  
+**Source:** *Air India Pets in Cabin Guidelines*, PDF p. 2.
+
+You should **confirm rabbit eligibility directly with Air India** before booking or travelling. The guidelines say PETC bookings can be made through Air India’s Customer Support page or airport/city reservation counters, and document verification does not guarantee the pet can travel.  
+**Source:** *Air India Pets in Cabin Guidelines*, PDF p. 4.",Air India Pets in Cabin Guidelines | Page 4; Air India Pets in Cabin Guidelines | Page 2; Air India Pets in Cabin Guidelines | Page 4; Air India Pets in Cabin Guidelines | Page 6; Air India Pets in Cabin Guidelines | Page 6; Air India Pets in Cabin Guidelines | Page 6; Air India Conditions of Carriage | Page 14; Air India Conditions of Carriage | Page 15,success
+Q20,Does Air India guarantee a hotel room for every passenger whose flight is delayed by two hours?,Say supplied provision does not support a two-hour hotel guarantee; state actual thresholds only if useful.,"Conditions of Carriage, PDF p.17 gives thresholds of over 24 hours or over six hours for specified overnight departures, not a general two-hour guarantee.","No. The supplied Air India policy does **not** guarantee a hotel room for every passenger whose flight is delayed by two hours.
+
+The retrieved Conditions of Carriage say hotel accommodation, including transfers, is arranged only when:
+
+- the **total delay exceeds 24 hours**, or
+- the delay is **beyond 6 hours** for flights scheduled to depart between **8 p.m. and 3 a.m.**  
+  Source: *Air India Conditions of Carriage*, PDF p. 17.
+
+It also states Air India is not liable to provide compensation or facilities where the delay is caused by **force majeure / extraordinary circumstances beyond the carrier’s control** that could not have been avoided even with reasonable measures.  
+Source: *Air India Conditions of Carriage*, PDF p. 17; related extraordinary-circumstances language on PDF p. 18.
+
+Important note: the supplied Conditions of Carriage excerpt has **no effective date stated**, so I cannot confirm from the provided context whether this is the currently valid policy.",Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 7; Air India Conditions of Carriage | Page 11; Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 17; Air India Conditions of Carriage | Page 11; Air India Conditions of Carriage | Page 8; Air India Conditions of Carriage | Page 18,success
