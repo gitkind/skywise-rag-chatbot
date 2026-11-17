@@ -1,69 +1,21 @@
+"""
+Baseline (vector-only) retrieval, kept for comparison with Hybrid RAG.
+Shares the cached model and collection with hybrid_retrieval.py.
+"""
 
-import chromadb
-from sentence_transformers import SentenceTransformer
-
-# Configuration
-CHROMA_PATH = "vector_store"
-COLLECTION_NAME = "flywise_air_india_v1"
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-
-# Load embedding model
-print("Loading embedding model...")
-embedding_model = SentenceTransformer(EMBEDDING_MODEL)
-
-# Connect to existing ChromaDB
-print("Connecting to ChromaDB...")
-chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
-
-collection = chroma_client.get_collection(
-    name=COLLECTION_NAME
-)
+from hybrid_retrieval import vector_search
 
 
-def retrieve_documents(question, top_k=8):
-    """
-    Retrieve the most relevant policy chunks for a user question.
-    """
-
-    query_embedding = embedding_model.encode(
-        question,
-        normalize_embeddings=True
-    ).tolist()
-
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=top_k,
-        include=["documents", "metadatas", "distances"]
-    )
-
-    retrieved_chunks = []
-
-    for i in range(len(results["documents"][0])):
-        chunk = {
-            "text": results["documents"][0][i],
-            "metadata": results["metadatas"][0][i],
-            "distance": results["distances"][0][i]
-        }
-
-        retrieved_chunks.append(chunk)
-
-    return retrieved_chunks
+def retrieve_documents(question, top_k=8, audience_mode="all"):
+    """Top-k chunks by cosine similarity. Baseline: no audience filter by default."""
+    return vector_search(question, top_k=top_k, audience_mode=audience_mode)
 
 
 if __name__ == "__main__":
-
     question = input("\nAsk an Air India policy question: ")
-
-    chunks = retrieve_documents(question)
-
-    print("\nRETRIEVED POLICY CHUNKS")
-    print("=" * 60)
-
-    for index, chunk in enumerate(chunks, start=1):
+    for index, chunk in enumerate(retrieve_documents(question), start=1):
         metadata = chunk["metadata"]
-
-        print(f"\nResult {index}")
-        print(f"Distance: {chunk['distance']:.4f}")
-        print(f"Document: {metadata.get('document_title')}")
-        print(f"Pages: {metadata.get('page_start')} - {metadata.get('page_end')}")
-        print(f"Text: {chunk['text']}")
+        print(f"\nResult {index} | distance {chunk['distance']:.4f}")
+        print(f"Document: {metadata.get('document_title')} | Pages: "
+              f"{metadata.get('page_start')}-{metadata.get('page_end')}")
+        print(chunk["text"][:500])

@@ -1,17 +1,23 @@
 
+import argparse
 import os
 import pandas as pd
 
+import config
 from retrieval import retrieve_documents
 from hybrid_retrieval import hybrid_retrieve
+from guardrails import rerank_chunks
+from query_decomposition import decomposed_retrieve, rule_based_split
+
+METHODS = ["Vector", "Hybrid", "Hybrid+Rerank", "Hybrid+Decomp+Rerank"]
 
 
 # --------------------------------------------------
 # CONFIGURATION
 # --------------------------------------------------
 
-DATASET_PATH = "data/flywise_evaluation_dataset_v1.csv"
-OUTPUT_DIR = "data/evaluation_results"
+DATASET_PATH = str(config.ROOT / "data" / "flywise_evaluation_dataset_v1.csv")
+OUTPUT_DIR = str(config.ROOT / "data" / "evaluation_results")
 TOP_K = 8
 EVALUATION_K = 5
 
@@ -107,6 +113,15 @@ def run_retriever(method, question):
     if method == "Hybrid":
         return hybrid_retrieve(question, top_k=TOP_K)
 
+    if method == "Hybrid+Rerank":
+        return rerank_chunks(question, hybrid_retrieve(question, top_k=TOP_K * 3), top_k=TOP_K)
+
+    if method == "Hybrid+Decomp+Rerank":
+        # rule-based decomposition so this metric needs no API key
+        subs = rule_based_split(question)
+        candidates = decomposed_retrieve(subs, top_k=TOP_K * 3)
+        return rerank_chunks(question, candidates, top_k=TOP_K)
+
     raise ValueError(f"Unknown retrieval method: {method}")
 
 
@@ -115,6 +130,10 @@ def run_retriever(method, question):
 # --------------------------------------------------
 
 def main():
+    global OUTPUT_DIR
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", default=OUTPUT_DIR, help="output folder")
+    OUTPUT_DIR = parser.parse_args().out
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     if not os.path.exists(DATASET_PATH):
@@ -129,7 +148,7 @@ def main():
 
     print("\n" + "=" * 65)
     print("FLYWISE - RETRIEVAL EVALUATION")
-    print("Vector RAG vs Hybrid RAG")
+    print(" vs ".join(METHODS), "| collection:", config.COLLECTION_NAME)
     print("=" * 65)
 
     for _, row in dataset.iterrows():
@@ -140,7 +159,7 @@ def main():
 
         print(f"\n[{question_id}] {question}")
 
-        for method in ["Vector", "Hybrid"]:
+        for method in METHODS:
 
             print(f"Running {method} retrieval...")
 

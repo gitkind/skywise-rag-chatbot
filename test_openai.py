@@ -1,12 +1,10 @@
-from dotenv import load_dotenv
+import config
 from openai import OpenAI
-
-load_dotenv()
 
 client = OpenAI()
 
 response = client.responses.create(
-    model="gpt-5.5",
+    model=config.LLM_MODEL,
     input="Reply with: FlyWise API connection successful."
 )
 

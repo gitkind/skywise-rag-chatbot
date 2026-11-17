@@ -1,13 +1,13 @@
 """Quick smoke test for the FlyWise ChromaDB collection."""
 
-from pathlib import Path
 import chromadb
 from sentence_transformers import SentenceTransformer
 
-ROOT = Path(__file__).resolve().parent
-client = chromadb.PersistentClient(path=str(ROOT / "vector_store"))
-collection = client.get_collection("flywise_air_india_v1")
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+import config
+
+client = chromadb.PersistentClient(path=str(config.CHROMA_PATH))
+collection = client.get_collection(config.COLLECTION_NAME)
+model = SentenceTransformer(config.EMBEDDING_MODEL)
 
 query = "What happens if my pet weighs more than 32 kg?"
 query_vector = model.encode(

@@ -2,26 +2,28 @@
 FlyWise Phase 4: Generate embeddings and persist them in ChromaDB.
 
 Input:
-  data/flywise_air_india_chunks_v2.csv
+  data/flywise_air_india_chunks_v2.csv   (default; or the v3 CSV from prepare_chunks.py)
 
 Output:
   vector_store/  (persistent ChromaDB database)
 
 Run:
   python build_vector_store.py
+  python build_vector_store.py --csv data/flywise_air_india_chunks_v3.csv --collection flywise_air_india_v3
 """
 
+import argparse
 from pathlib import Path
 import math
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import chromadb
 
-ROOT = Path(__file__).resolve().parent
-CSV_PATH = ROOT / "data" / "flywise_air_india_chunks_v2.csv"
-DB_PATH = ROOT / "vector_store"
-COLLECTION_NAME = "flywise_air_india_v1"
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+import config
+
+ROOT = config.ROOT
+DB_PATH = config.CHROMA_PATH
+MODEL_NAME = config.EMBEDDING_MODEL
 BATCH_SIZE = 64
 
 REQUIRED_COLUMNS = [
@@ -44,9 +46,16 @@ def clean_metadata_value(value):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--csv", type=Path, default=config.CHUNKS_CSV)
+    parser.add_argument("--collection", default=config.COLLECTION_NAME)
+    args = parser.parse_args()
+    CSV_PATH = args.csv if args.csv.is_absolute() else ROOT / args.csv
+    COLLECTION_NAME = args.collection
+
     if not CSV_PATH.exists():
         raise FileNotFoundError(
-            f"Could not find {CSV_PATH}. Put the v2 CSV in the data/ folder."
+            f"Could not find {CSV_PATH}. Run `python prepare_chunks.py` first."
         )
 
     df = pd.read_csv(CSV_PATH)
@@ -102,12 +111,17 @@ def main():
             for col in [
                 "document_title", "source_file", "topic", "audience",
                 "effective_date", "page_start", "page_end",
-                "source_page_reference", "word_count", "estimated_tokens"
+                "source_page_reference", "word_count", "estimated_tokens",
+                "is_historical"
             ]:
                 if col in row.index:
                     value = clean_metadata_value(row[col])
                     if value is not None:
                         metadata[col] = value
+            if "is_historical" not in metadata:
+                metadata["is_historical"] = "historical" in str(
+                    metadata.get("effective_date", "")).lower()
+            metadata["is_historical"] = bool(metadata["is_historical"])
             metadata["airline"] = "Air India"
             metadatas.append(metadata)
 
