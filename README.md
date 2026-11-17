@@ -2,6 +2,8 @@
 
 A Retrieval-Augmented Generation chatbot that answers Air India passengers' questions from six **official Air India policy PDFs**. It cites the exact PDF page for every claim, and it says so when the documents don't contain the answer.
 
+**Live app:** https://skywise-air-india.streamlit.app
+
 **Industry:** Travel & Hospitality · **Company:** Air India · **Users:** passengers asking about cancellations, refunds, delays, pets in the cabin and baggage.
 
 ## Pipeline
